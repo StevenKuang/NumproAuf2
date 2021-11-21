@@ -6,7 +6,7 @@ public class Test_Interpolation {
      * @param args
      */
     public static void main(String[] args) {
-        testNewton();
+        //testNewton();
         testSplines();
     }
 
