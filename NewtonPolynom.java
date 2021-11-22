@@ -86,7 +86,38 @@ public class NewtonPolynom implements InterpolationMethod {
      * Es gilt immer: x und y sind gleich lang.
      */
     private void computeCoefficients(double[] y) {
+        int length = y.length;
+        int count=0;
+        this.a=Arrays.copyOf(y, y.length);
+        f = new double[length];
+        f[count++] = y[length-1];
+
+        for(int j = 1 ; j < length ; j++ ) {
+            for(int i = length-1; i > j-1; i--) {
+                a[i] = (a[i] - a[i-1]) / (x[i]-x[i-j]);
+            }
+            f[count++] = a[length-1];
+        }
+        /*
+        double dreieck[][] = new double [length][length];
+        for(int i = 0 ; i < length ; i++) dreieck[0][i]=y[i];
+        for(int i = 1 ; i < length ; i++) {
+            for(int j = 0 ; j < length - i ; j++) {
+                dreieck[i][j] = (dreieck[i-1][j+1] - dreieck[i-1][j])/(x[j+i] - x[j]);
+            }
+        }
+        for(int i = 0; i < length ;i++) {
+            a[i] = dreieck[i][0];
+        }
+
+         for(int i = 0,j = length - 1; i < length  ;i++,j--) {
+            f[i] = dreieck[i][j];
+        }
+        //System.out.println(Arrays.deepToString(dreieck));
+        //System.out.println(Arrays.toString(a));
+
         /* TODO: diese Methode ist zu implementieren */
+        System.out.println(Arrays.toString(f));
     }
 
     /**
@@ -120,6 +151,30 @@ public class NewtonPolynom implements InterpolationMethod {
      *            neuer Stuetzwert
      */
     public void addSamplingPoint(double x_new, double y_new) {
+        this.x=Arrays.copyOf(x, x.length+1);
+        this.a=Arrays.copyOf(a, a.length+1);
+        this.f=Arrays.copyOf(f, f.length+1);
+        x[x.length-1] = x_new;
+        double temp1 = y_new;
+        double temp;
+        int count=0;
+        for(int i = 0; i < f.length ; i+=2) {
+            temp = (temp1 - f[i]) / (x_new - x[x.length-2-i]);
+            f[i]= temp1;
+            count++;
+            if(count==f.length-1) {
+                f[count] = temp; break;
+            }
+            temp1 = (temp-f[i+1]) / (x_new - x[x.length-3-i]);
+            f[i+1] = temp;
+            count++;
+            if(count==f.length-1) {
+                f[count] = temp1; break;
+            }
+        }
+        a[a.length-1]=f[f.length-1];
+       // System.out.println(Arrays.toString(f));
+        //System.out.println(Arrays.toString(a));
         /* TODO: diese Methode ist zu implementieren */
     }
 
@@ -131,6 +186,12 @@ public class NewtonPolynom implements InterpolationMethod {
     @Override
     public double evaluate(double z) {
         /* TODO: diese Methode ist zu implementieren */
-        return 0.0;
+        double result=a[a.length-1];
+
+        for(int i=a.length-2;i>=0;i--){
+            result=a[i]+(z-x[i])*result;
+        }
+        return result;
     }
 }
+

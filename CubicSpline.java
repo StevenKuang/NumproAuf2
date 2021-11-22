@@ -96,9 +96,9 @@ public class CubicSpline implements InterpolationMethod {
         if (n == 2) {
             // in this case we only have to look for the yprime[1]
             // according to the formula we don't have an LGS instead we just have one equality because just one unknown
-            // yprime[0] + 4*yprime[1] + yprime[2] = ( 3/h * (y[2] - y[0]) - yprime[0]) <- I am not quite sure this works though
+            // yprime[0] + 4*yprime[1] + yprime[2] = 3/h * (y[2] - y[0]) <- I am not quite sure this works though
 
-            yprime[1] = ((3 / h) * (y[2] - y[0]) - 2 * yprime[0] - yprime[2]) * 1 / 4;
+            yprime[1] = ((3 / h) * (y[2] - y[0]) - yprime[0] - yprime[2]) * 1 / 4;
             return;
         }
         if (n == 3) {
