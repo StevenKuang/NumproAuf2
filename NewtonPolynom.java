@@ -115,8 +115,9 @@ public class NewtonPolynom implements InterpolationMethod {
         }
         //System.out.println(Arrays.deepToString(dreieck));
         //System.out.println(Arrays.toString(a));
-        //System.out.println(Arrays.toString(f));
+
         /* TODO: diese Methode ist zu implementieren */
+        System.out.println(Arrays.toString(f));
     }
 
     /**
@@ -185,10 +186,12 @@ public class NewtonPolynom implements InterpolationMethod {
     @Override
     public double evaluate(double z) {
         /* TODO: diese Methode ist zu implementieren */
-        double result=1;
-        for(int i=a.length-1;i>=0;i--){
+        double result=a[a.length-1];
+
+        for(int i=a.length-2;i>=0;i--){
             result=a[i]+(z-x[i])*result;
         }
         return result;
     }
 }
+
