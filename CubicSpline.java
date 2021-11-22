@@ -108,7 +108,7 @@ public class CubicSpline implements InterpolationMethod {
 
             //our b vector
             double[] bVector = new double[2];
-            bVector[0] = (3 / h) * (y[2] - y[0]) - yprime[0];
+            bVector[0] = ( (3 / h) * (y[2] - y[0]) )- yprime[0];
             bVector[1] = (3 / h) * (y[3] - y[1]) - yprime[3];
             double[] result = solveWithSpecificMatrix(bVector);
             yprime[1] = result[0];
@@ -160,7 +160,7 @@ public class CubicSpline implements InterpolationMethod {
 
     private double[] solveWithSpecificMatrix(double[] b) {
         double x, y;
-        x = (4 * b[0] - b[1]) / 7;
+        x = (4 * b[0] - b[1]) / 15;
         y = b[0] - 4 * x;
         return new double[]{x, y};
     }
@@ -178,10 +178,10 @@ public class CubicSpline implements InterpolationMethod {
 
     public static void main(String[] args) {
         CubicSpline cubicSpline = new CubicSpline();
-        double[] y = new double[] {1, 0.5};
-        cubicSpline.init(-1.0, 2.0, 1, y);
-        cubicSpline.setBoundaryConditions(0.5, 2.0);
-        double result = cubicSpline.evaluate(0);
+        double[] y = new double[] {2.0, -1.0, -2.0, 1.0};
+        cubicSpline.init(-2.0, 4.0, 3, y);
+        cubicSpline.setBoundaryConditions(1.0, 1.0);
+        double result = cubicSpline.evaluate(-1.0);
         System.out.println(result);
     }
 }
