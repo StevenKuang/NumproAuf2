@@ -1,5 +1,5 @@
 import java.util.Arrays;
-
+ 
 /**
  * Die Klasse Newton-Polynom beschreibt die Newton-Interpolation. Die Klasse
  * bietet Methoden zur Erstellung und Auswertung eines Newton-Polynoms, welches
@@ -117,7 +117,7 @@ public class NewtonPolynom implements InterpolationMethod {
         //System.out.println(Arrays.toString(a));
 
         /* TODO: diese Methode ist zu implementieren */
-        System.out.println(Arrays.toString(f));
+        //System.out.println(Arrays.toString(f));
     }
 
     /**
@@ -132,7 +132,12 @@ public class NewtonPolynom implements InterpolationMethod {
      * zurueck
      */
     public double[] getDividedDifferences() {
-        return f;
+         for (int i = 0; i < f.length / 2; i++) {
+            double temp = f[i];
+            f[i] = f[f.length - 1 - i];
+            f[f.length - 1 - i] = temp;
+        }
+          return f;
     }
 
     /**
@@ -194,4 +199,3 @@ public class NewtonPolynom implements InterpolationMethod {
         return result;
     }
 }
-
