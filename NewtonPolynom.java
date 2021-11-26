@@ -29,7 +29,7 @@ public class NewtonPolynom implements InterpolationMethod {
      * leerer Konstruktore
      */
     public NewtonPolynom() {
-    };
+    }
 
     /**
      * Konstruktor
@@ -178,7 +178,7 @@ public class NewtonPolynom implements InterpolationMethod {
             }
         }
         a[a.length-1]=f[f.length-1];
-       // System.out.println(Arrays.toString(f));
+       System.out.println(Arrays.toString(f));
         //System.out.println(Arrays.toString(a));
         /* TODO: diese Methode ist zu implementieren */
     }
