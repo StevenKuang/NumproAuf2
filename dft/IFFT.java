@@ -31,8 +31,8 @@ public class IFFT {
             Complex[] z1 = new Complex[m];
             Complex[] z2 = new Complex[m];
             for (int i = 0; i < m; i++) {
-                z1[i] = c[2*i];
-                z2[i] = c[2*i+1];  
+                z1[i] = c[2*i];         // even
+                z2[i] = c[2*i+1];       // odd
             }
             z1 = ifft(z1);
             z2 = ifft(z2);

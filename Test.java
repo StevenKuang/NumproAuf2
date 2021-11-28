@@ -39,7 +39,7 @@ public class Test {
         double[] v = new double[4];
         for (int i = 0; i < 4; i++)
             v[i] = i + 1;
-        Complex[] c = ;
+        Complex[] c = dft.DFT.dft(v);
         Complex[] v2 = dft.IFFT.ifft(c);
 
         for (int i = 0; i < 4; i++) {
