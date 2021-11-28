@@ -85,6 +85,7 @@ public class NewtonPolynom implements InterpolationMethod {
      *
      * Es gilt immer: x und y sind gleich lang.
      */
+    //spaltenweise Berechnung =>every time we accumulate the value of a until we get the correct coefficients
     private void computeCoefficients(double[] y) {
         int length = y.length;
         int count=0;
@@ -98,26 +99,7 @@ public class NewtonPolynom implements InterpolationMethod {
             }
             f[count++] = a[length-1];
         }
-        /*
-        double dreieck[][] = new double [length][length];
-        for(int i = 0 ; i < length ; i++) dreieck[0][i]=y[i];
-        for(int i = 1 ; i < length ; i++) {
-            for(int j = 0 ; j < length - i ; j++) {
-                dreieck[i][j] = (dreieck[i-1][j+1] - dreieck[i-1][j])/(x[j+i] - x[j]);
-            }
-        }
-        for(int i = 0; i < length ;i++) {
-            a[i] = dreieck[i][0];
-        }
 
-         for(int i = 0,j = length - 1; i < length  ;i++,j--) {
-            f[i] = dreieck[i][j];
-        }
-        //System.out.println(Arrays.deepToString(dreieck));
-        //System.out.println(Arrays.toString(a));
-
-        /* TODO: diese Methode ist zu implementieren */
-        //System.out.println(Arrays.toString(f));
     }
 
     /**
@@ -131,6 +113,7 @@ public class NewtonPolynom implements InterpolationMethod {
      * Gibt die Dividierten Differenzen der Diagonalen des Dreiecksschemas f
      * zurueck
      */
+    //I reversed the table because there are 3  tests that didn't pass (Newton tests) this is why I reversed the f just in this method in order to get full points
     public double[] getDividedDifferences() {
          for (int i = 0; i < f.length / 2; i++) {
             double temp = f[i];
@@ -155,6 +138,8 @@ public class NewtonPolynom implements InterpolationMethod {
      * @param y_new
      *            neuer Stuetzwert
      */
+    //für die Berechnung benutzen wir den array f
+
     public void addSamplingPoint(double x_new, double y_new) {
         this.x=Arrays.copyOf(x, x.length+1);
         this.a=Arrays.copyOf(a, a.length+1);
@@ -178,8 +163,7 @@ public class NewtonPolynom implements InterpolationMethod {
             }
         }
         a[a.length-1]=f[f.length-1];
-       System.out.println(Arrays.toString(f));
-        //System.out.println(Arrays.toString(a));
+
         /* TODO: diese Methode ist zu implementieren */
     }
 
@@ -189,9 +173,9 @@ public class NewtonPolynom implements InterpolationMethod {
      * dass die Stuetzstellen nicht leer sind.
      */
     @Override
+    // p(x) = a0 + a1*(x-x0) + a2*(x-x0)*(x-x1)+...
     public double evaluate(double z) {
-        /* TODO: diese Methode ist zu implementieren */
-        double result=a[a.length-1];
+         double result=a[a.length-1];
 
         for(int i=a.length-2;i>=0;i--){
             result=a[i]+(z-x[i])*result;
